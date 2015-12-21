@@ -7,12 +7,13 @@ Projet GET\_NEXT\_LINE @42
 
 Authors : dchristo
 
-liste | A faire | A tester | Fait
-- |:-: | :-: | -:
-Lire | | | **X**
-Return \n | | | **X**
-Plusieurs ligne | **X** | |
-Plusieurs fd | **X** | |
+liste | A faire | A tester | Fait  
+- |:-: | :-: | -:  
+Lire | | | X  
+Return \n | | | X  
+Plusieurs ligne | X | |  
+Plusieurs fd | X | |  
+
 
 	"+---------------------------------------------------------------------------------+";
 	"|   _____ ______ _______   _   _ ________   _________   _      _____ _   _ ______  |";
