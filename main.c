@@ -6,7 +6,7 @@
 /*   By: dchristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/21 16:46:12 by dchristo          #+#    #+#             */
-/*   Updated: 2015/12/21 20:27:23 by dchristo         ###   ########.fr       */
+/*   Updated: 2015/12/22 22:41:08 by dchristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,14 @@ int		main(int argc, char **argv)
 
 	while (--argc)
 	{
-		if ((fd = open(argv[argc], O_RDONLY)) == -1)
-			return (0);
-		get_next_line(fd, &line);
-		ft_putendl(line);
+		fd = open(argv[argc], O_RDONLY);
+		int i = 1;
+		int res;
+		while ( (res = get_next_line(fd, &line)) != 0)
+		{
+			if (res == -1)
+				break;
+			ft_putendl(line);
+		}
 	}
 }
