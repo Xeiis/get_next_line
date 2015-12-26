@@ -6,7 +6,7 @@
 /*   By: dchristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/21 16:12:17 by dchristo          #+#    #+#             */
-/*   Updated: 2015/12/26 15:28:55 by dchristo         ###   ########.fr       */
+/*   Updated: 2015/12/26 15:31:41 by dchristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int		get_next_line(int const fd, char **line)
 	static	char		*save;
 	int					i;
 	int					boucle;
-	int					len;
 
 	i = -1;
 	boucle = 0;
@@ -75,9 +74,9 @@ int		get_next_line(int const fd, char **line)
 	while (++i < 3)
 		if ((tmp[i] = (char *)malloc((sizeof(char) * BUFF_SIZE + 1))) == NULL)
 			return (-1);
-	while ((len = read(fd, tmp[2], BUFF_SIZE)) > 0)
+	while ((i = read(fd, tmp[2], BUFF_SIZE)) > 0)
 	{
-		tmp[2][len] = '\0';
+		tmp[2][i] = '\0';
 		i = -1;
 		while (tmp[2][++i] && tmp[2][i] != '\n')
 			tmp[0][i] = tmp[2][i];
