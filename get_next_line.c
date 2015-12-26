@@ -6,7 +6,7 @@
 /*   By: dchristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/21 16:12:17 by dchristo          #+#    #+#             */
-/*   Updated: 2015/12/26 15:00:21 by dchristo         ###   ########.fr       */
+/*   Updated: 2015/12/26 15:28:55 by dchristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int		in_while(char **tmp, int *boucle, char **line, int i)
 	*boucle = *boucle + 1;
 	ft_strcpy(tmp[1], *line);
 	free(*line);
-	if ((*line = ft_strnew(BUFF_SIZE * (*boucle + 1))) == NULL)
+	if ((*line = ft_strnew((*(boucle) + 1) * BUFF_SIZE)) == NULL)
 		return (-1);
 	ft_strcpy(*line, tmp[1]);
 	free(tmp[1]);
-	if ((tmp[1] = ft_strnew(BUFF_SIZE * (*boucle + 1))) == NULL)
+	if ((tmp[1] = ft_strnew((*(boucle) + 1) * BUFF_SIZE)) == NULL)
 		return (-1);
 	ft_strcat(*line, tmp[0]);
 	return (0);
@@ -47,12 +47,16 @@ int		retour(int len, char *buf, char *save, int i)
 		return (0);
 }
 
-int		init(char ***tmp, char **line)
+int		init(char ***tmp, char **line, char **save)
 {
 	if ((*tmp = (char **)malloc(sizeof(char *) * 3)) == NULL)
 		return (-1);
 	if ((*line = ft_strnew(BUFF_SIZE)) == NULL)
 		return (-1);
+	if (!*save)
+		if ((*save = ft_strnew(BUFF_SIZE)) == NULL)
+			return (-1);
+	ft_strcpy(*line, *save);
 	return (0);
 }
 
@@ -66,15 +70,11 @@ int		get_next_line(int const fd, char **line)
 
 	i = -1;
 	boucle = 0;
-	if ((init(&tmp, line)) == -1)
+	if ((init(&tmp, line, &save)) == -1)
 		return (-1);
 	while (++i < 3)
 		if ((tmp[i] = (char *)malloc((sizeof(char) * BUFF_SIZE + 1))) == NULL)
 			return (-1);
-	if (!save)
-		if ((save = ft_strnew(BUFF_SIZE)) == NULL)
-			return (-1);
-	ft_strcpy(*line, save);
 	while ((len = read(fd, tmp[2], BUFF_SIZE)) > 0)
 	{
 		tmp[2][len] = '\0';
