@@ -11,7 +11,7 @@ liste     | A faire | A tester | Fait
 ----------|:--------|:--------:|-----:
 Lire      |         |          | **X**
 Return \n |         |          | **X**
-n ligne   | **X** |          |
+n ligne   |         | **X** |
 n fd      | **X** |          |
 
 
