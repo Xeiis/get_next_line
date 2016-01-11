@@ -6,7 +6,7 @@
 /*   By: dchristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/21 16:12:17 by dchristo          #+#    #+#             */
-/*   Updated: 2015/12/26 15:31:41 by dchristo         ###   ########.fr       */
+/*   Updated: 2016/01/11 21:21:58 by dchristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ int		in_while(char **tmp, int *boucle, char **line, int i)
 	return (0);
 }
 
-int		retour(int len, char *buf, char *save, int i)
+int		retour(int i, char *buf, char *save, char **line)
 {
 	int		j;
 
 	j = 0;
-	if (len == -1)
+	if (i == -1)
 		return (-1);
 	else if (buf[i] == '\n')
 	{
@@ -43,12 +43,16 @@ int		retour(int len, char *buf, char *save, int i)
 		save[j] = '\0';
 		return (1);
 	}
+	else if (save != NULL && i = 0)
+		// on ecrit dans line et on return;
 	else
 		return (0);
 }
 
 int		init(char ***tmp, char **line, char **save)
 {
+	if (!line)
+		return (-1);
 	if ((*tmp = (char **)malloc(sizeof(char *) * 3)) == NULL)
 		return (-1);
 	if ((*line = ft_strnew(BUFF_SIZE)) == NULL)
@@ -85,5 +89,6 @@ int		get_next_line(int const fd, char **line)
 		if (tmp[2][i] == '\n')
 			break ;
 	}
-	return (retour(len, tmp[2], save, i));
+	printf("line : {%s}, buf : {%s}, i : %d\n", *line,tmp[2], i);
+	return (retour(i, tmp[2], save, line));
 }
