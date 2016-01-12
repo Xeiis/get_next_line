@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_next_line2.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dchristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/21 16:46:12 by dchristo          #+#    #+#             */
-/*   Updated: 2016/01/12 23:08:18 by dchristo         ###   ########.fr       */
+/*   Created: 2016/01/12 22:21:14 by dchristo          #+#    #+#             */
+/*   Updated: 2016/01/12 22:21:20 by dchristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "get_next_line.h"
-#include <fcntl.h>
+#ifndef GET_NEXT_LINE2_H
+# define GET_NEXT_LINE2_H
 
-int		main(int argc, char **argv)
+typedef struct		s_list
 {
-	int		fd;
-	char	*line;
-	int		res;
+	char			buf[BUFF_SIZE];
+	struct s_list	*next;
+	struct s_list	*prev;
+}					t_list;
 
-	while (--argc)
-	{
-		fd = open(argv[argc], O_RDONLY);
-		while ((res = get_next_line(fd, &line)) > 0)
-		{
-			ft_putchar('[');
-			ft_putnbr(res);
-			ft_putchar(']');
-			ft_putchar(':');
-			ft_putendl(line);
-		}
-	}
-}
+typedef struct		s_list_save
+{
+	char			save[BUFF_SIZE];
+	int				fd;
+	struct s_list	*next;
+}					t_list_save;
+
+#endif
