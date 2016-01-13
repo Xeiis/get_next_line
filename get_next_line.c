@@ -6,7 +6,7 @@
 /*   By: dchristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/21 16:12:17 by dchristo          #+#    #+#             */
-/*   Updated: 2016/01/13 17:10:55 by dchristo         ###   ########.fr       */
+/*   Updated: 2016/01/13 17:18:11 by dchristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static int		retour(int i, char **buf, char *save, char **line)
 	int		j;
 
 	j = 0;
+	free(buf[0]);
+	free(buf[1]);
 	if (i == -1)
 		return (-1);
 	else if (buf[2][i] == '\n')
@@ -62,12 +64,15 @@ static int		retour(int i, char **buf, char *save, char **line)
 		while (buf[2][++i])
 			save[j++] = buf[2][i];
 		save[j] = '\0';
+		free(buf[2]);
+		free(buf);
 		return (1);
 	}
 	else if (save[0] != '\0' && i == 0)
 	{
-		i--;
-		if (recup_save_backline(line, i, save))
+		free(buf[2]);
+		free(buf);
+		if (recup_save_backline(line, i - 1, save))
 			return (1);
 	}
 	return (0);
