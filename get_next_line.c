@@ -6,7 +6,7 @@
 /*   By: dchristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/21 16:12:17 by dchristo          #+#    #+#             */
-/*   Updated: 2016/01/13 12:38:17 by dchristo         ###   ########.fr       */
+/*   Updated: 2016/01/13 16:58:29 by dchristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ static int		init(char ***tmp, char **line, char **save)
 int				get_next_line(int const fd, char **line)
 {
 	char				**tmp;
-	static	char		*save;
+	static	char		*save[256];
 	int					i;
 	int					boucle;
 
 	boucle = 0;
-	if ((i = init(&tmp, line, &save)) != 0)
+	if ((i = init(&tmp, line, &save[fd])) != 0)
 		return (i);
 	i = -1;
 	while (++i < 3)
@@ -118,5 +118,5 @@ int				get_next_line(int const fd, char **line)
 		if (tmp[2][i] == '\n')
 			break ;
 	}
-	return (retour(i, tmp[2], save, line));
+	return (retour(i, tmp[2], save[fd], line));
 }
