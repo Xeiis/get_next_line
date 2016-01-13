@@ -6,7 +6,7 @@
 /*   By: dchristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/21 16:12:17 by dchristo          #+#    #+#             */
-/*   Updated: 2016/01/12 23:32:08 by dchristo         ###   ########.fr       */
+/*   Updated: 2016/01/13 12:38:17 by dchristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,10 @@ static int		retour(int i, char *buf, char *save, char **line)
 	else if (save[0] != '\0' && i == 0)
 	{
 		i--;
-		recup_save_backline(line, i, save, buf);
-		return (1);
+		if (recup_save_backline(line, i, save, buf))
+			return (1);
 	}
-	else
-		return (0);
+	return (0);
 }
 
 static int		init(char ***tmp, char **line, char **save)
