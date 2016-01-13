@@ -6,7 +6,7 @@
 /*   By: dchristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/21 16:12:17 by dchristo          #+#    #+#             */
-/*   Updated: 2016/01/13 17:05:28 by dchristo         ###   ########.fr       */
+/*   Updated: 2016/01/13 17:10:55 by dchristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ static int		in_while(char **tmp, int *boucle, char **line, int i)
 	return (0);
 }
 
-static int		recup_save_backline(char **line, int i, char *save, char *buf)
+static int		recup_save_backline(char **line, int i, char *save)
 {
-	int j;
+	char		*buf;
+	int			j;
 
 	if ((buf = ft_strnew(BUFF_SIZE)) == NULL)
 		return (-1);
@@ -49,24 +50,24 @@ static int		recup_save_backline(char **line, int i, char *save, char *buf)
 	return (0);
 }
 
-static int		retour(int i, char *buf, char *save, char **line)
+static int		retour(int i, char **buf, char *save, char **line)
 {
 	int		j;
 
 	j = 0;
 	if (i == -1)
 		return (-1);
-	else if (buf[i] == '\n')
+	else if (buf[2][i] == '\n')
 	{
-		while (buf[++i])
-			save[j++] = buf[i];
+		while (buf[2][++i])
+			save[j++] = buf[2][i];
 		save[j] = '\0';
 		return (1);
 	}
 	else if (save[0] != '\0' && i == 0)
 	{
 		i--;
-		if (recup_save_backline(line, i, save, buf))
+		if (recup_save_backline(line, i, save))
 			return (1);
 	}
 	return (0);
@@ -87,7 +88,7 @@ static int		init(char ***tmp, char **line, char **save)
 	}
 	else
 	{
-		if (recup_save_backline(line, -1, *save, NULL))
+		if (recup_save_backline(line, -1, *save))
 			return (1);
 	}
 	return (0);
@@ -118,5 +119,5 @@ int				get_next_line(int const fd, char **line)
 		if (tmp[2][i] == '\n')
 			break ;
 	}
-	return (retour(i, tmp[2], save[fd], line));
+	return (retour(i, tmp, save[fd], line));
 }
