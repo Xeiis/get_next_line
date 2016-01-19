@@ -1,8 +1,8 @@
 # Get\_Next\_Line
 Debut 21 Decembre 2015  
-Fin XX XXXXX 2016  
+Fin 19 Janvier 2016  
 Note : XX  
-Retry : XXX  
+Retry : 1  
 
 Projet GET\_NEXT\_LINE @42
 
@@ -13,7 +13,7 @@ liste     | A faire | A tester | Fait
 Lire      |         |          | **X**
 Return \n |         |          | **X**
 n ligne   |         |          | **X**
-n fd      | **X** |          |
+n fd      |         |          | **X**
 
 
 	"+----------------------------------------------------------------------------------+";
