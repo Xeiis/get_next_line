@@ -6,7 +6,7 @@
 /*   By: dchristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/21 16:12:17 by dchristo          #+#    #+#             */
-/*   Updated: 2016/01/13 17:18:11 by dchristo         ###   ########.fr       */
+/*   Updated: 2016/01/22 15:30:09 by dchristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static int		in_while(char **tmp, int *boucle, char **line, int i)
 	return (0);
 }
 
-static int		recup_save_backline(char **line, int i, char *save)
+static int		recup_save_backline(char **line, int i, char *save,
+		char **to_free)
 {
 	char		*buf;
 	int			j;
@@ -41,10 +42,17 @@ static int		recup_save_backline(char **line, int i, char *save)
 		buf[i] = save[i];
 	buf[i] = '\0';
 	ft_strcpy(*line, buf);
+	if (save[i] == '\0')
+		ft_bzero(save, BUFF_SIZE);
 	if (save[i] == '\n')
 	{
 		while (save[i++] != '\0')
 			save[j++] = save[i];
+		if (to_free)
+		{
+			free(to_free[2]);
+			free(to_free);
+		}
 		return (1);
 	}
 	return (0);
@@ -69,17 +77,17 @@ static int		retour(int i, char **buf, char *save, char **line)
 		return (1);
 	}
 	else if (save[0] != '\0' && i == 0)
-	{
-		free(buf[2]);
-		free(buf);
-		if (recup_save_backline(line, i - 1, save))
+		if (recup_save_backline(line, i - 1, save, buf))
 			return (1);
-	}
-	return (0);
+	free(buf[2]);
+	free(buf);
+	return (*line[0] == '\0' && save[0] == '\0' ? 0 : 1);
 }
 
-static int		init(char ***tmp, char **line, char **save)
+static int		init(char ***tmp, char **line, char **save, int fd)
 {
+	if (fd <= -1 || fd >= 256)
+		return (-1);
 	if (!line)
 		return (-1);
 	if ((*tmp = (char **)malloc(sizeof(char *) * 3)) == NULL)
@@ -93,7 +101,7 @@ static int		init(char ***tmp, char **line, char **save)
 	}
 	else
 	{
-		if (recup_save_backline(line, -1, *save))
+		if (recup_save_backline(line, -1, *save, NULL))
 			return (1);
 	}
 	return (0);
@@ -107,7 +115,7 @@ int				get_next_line(int const fd, char **line)
 	int					boucle;
 
 	boucle = 0;
-	if ((i = init(&tmp, line, &save[fd])) != 0)
+	if ((i = init(&tmp, line, &save[fd], fd)) != 0)
 		return (i);
 	i = -1;
 	while (++i < 3)

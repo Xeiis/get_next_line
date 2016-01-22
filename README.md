@@ -1,8 +1,8 @@
 # Get\_Next\_Line
 Debut 21 Decembre 2015  
-Fin 19 Janvier 2016  
-Note : XX  
-Retry : 1  
+Fin 22 Janvier 2016  
+Note : 121  
+Retry : 2  
 
 Projet GET\_NEXT\_LINE @42
 
